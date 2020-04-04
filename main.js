@@ -36,7 +36,7 @@ var __main = function() {
         block: 'img/block.png',
         paddle: 'img/paddle.png',
     }
-    var game = GuaGame(window.fps, images, function(g) {
+    var game = GuaGame.instance(window.fps, images, function(g) {
         var s = SceneTitle.new(g)
         g.runWithScene(s)
     })

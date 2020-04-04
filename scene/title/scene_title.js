@@ -6,10 +6,6 @@ class SceneTitle extends GuaScene {
             game.replaceScene(s)
         })
     }
-    static new(game) {
-        var i = new this(game)
-        return i 
-    }
     draw() {
         this.game.context.fillText('按 k 开始游戏：', 200, 190)
     }
