@@ -1,14 +1,16 @@
-var SceneEnd = function(game) {
-    var s = {
-        game: game,
+class SceneEnd extends GuaScene {
+    constructor(game) {
+        super(game)
+        game.registerAction('r', function() {
+            var s = SceneTitle.new(game)
+            game.replaceScene(s)
+        })
     }
-
-    s.draw = function() {
-        game.context.fillText('游戏结束：', 100, 290)
+    static new(game) {
+        var i = new this(game)
+        return i
     }
-    s.update = function() {
-
+    draw() {
+        this.game.context.fillText('游戏结束, 按 r 返回标题界面', 200, 190)
     }
-
-    return s
 }
