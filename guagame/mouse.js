@@ -1,3 +1,4 @@
+var e = sel => document.querySelector(sel)
 var b = e('.gua-fg')
 
 bar.Style.left = '0px'
