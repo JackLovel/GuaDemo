@@ -119,6 +119,9 @@ class Scene extends GuaScene {
         this.addElement(this.player)
         // 添加敌机
         this.addEnemies()
+        // 添加粒子系统
+        var ps = GuaParticleSystem.new(this.game)
+        this.addElement(ps)
     }
     addEnemies() {
         var es = [] 

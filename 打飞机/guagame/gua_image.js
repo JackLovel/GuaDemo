@@ -12,7 +12,8 @@ class GuaImage {
         return i
     }
     draw() {
-        this.game.context.fillText('按 k 开始游戏：', 200, 190)
+        // this.game.context.fillText('按 k 开始游戏：', 200, 190)
+        this.game.drawImage(this)
     }
     update() {
         
