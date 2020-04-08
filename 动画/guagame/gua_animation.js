@@ -25,4 +25,7 @@ class GuaAnimation {
     draw() {
         this.game.drawImage(this)
     }
+    move(x) {
+        this.x += x 
+    }
 }
