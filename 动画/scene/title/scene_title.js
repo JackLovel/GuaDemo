@@ -4,9 +4,13 @@ class SceneTitle extends GuaScene {
         var label = GuaLabel.new(game, 'hello from gua')
         this.addElement(label)
 
+        // cave bg 
+        var cave = GuaImage.new(game, 'cave')
+        this.addElement(cave)
+        // player 
         var w = GuaAnimation.new(game)
         w.x = 100 
-        w.y = 200 
+        w.y = 50  
         this.w = w 
         this.addElement(w)
 

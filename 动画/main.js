@@ -58,6 +58,8 @@ var __main = function() {
         run8: 'img/player-run/Run__007.png',
         run9: 'img/player-run/Run__008.png',
         run10: 'img/player-run/Run__009.png',
+        // 背景 
+        cave: 'img/cave.png',
     }
     var game = GuaGame.instance(window.fps, images, function(g) {
         // var s = Scene.new(g)
