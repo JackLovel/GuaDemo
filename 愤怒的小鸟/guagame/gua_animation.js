@@ -3,17 +3,11 @@ class GuaAnimation {
         this.game = game 
         this.animations = {
             idle: [],
-            run: [],
         }
-        for (var i = 1; i < 11; i++) {
-            var name = `idle${i}`
+        for (var i = 1; i < 4; i++) {
+            var name = `b${i}`
             var t = game.textureByName(name)
             this.animations['idle'].push(t)
-        }
-        for (var i = 1; i < 11; i++) {
-            var name = `run${i}`
-            var t = game.textureByName(name)
-            this.animations['run'].push(t)
         }
         this.animationName = 'idle'
         this.texture = this.frames()[0]
@@ -56,12 +50,6 @@ class GuaAnimation {
     move(x, keyStatus) {
         this.flipX = x < 0 
         this.x += x 
-        var animationNames = {
-            down: 'run',
-            up: 'idle', 
-        }
-        var name = animationNames[keyStatus]
-        this.changeAnimation(name)
     }
     changeAnimation(name) {
         this.animationName = name 
