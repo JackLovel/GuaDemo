@@ -60,6 +60,12 @@ var __main = function() {
         run10: 'img/player-run/Run__009.png',
         // 背景 
         cave: 'img/cave.png',
+        // flappy bird image 
+        bg: 'bird/bg.png', 
+        ground: 'bird/ground.png',
+        b1: 'bird/b1.png',
+        b2: 'bird/b2.png',
+        b3: 'bird/b3.png',
     }
     var game = GuaGame.instance(window.fps, images, function(g) {
         // var s = Scene.new(g)
