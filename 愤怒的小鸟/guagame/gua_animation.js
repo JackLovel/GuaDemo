@@ -16,6 +16,9 @@ class GuaAnimation {
         this.frameIndex = 0 
         this.frameCount = 3 
         this.flipX = false // 水平翻转
+        // 重力和加速度
+        this.gy = 10 
+        this.vy = 0 
     }
     static new(game) {
         return new this(game)

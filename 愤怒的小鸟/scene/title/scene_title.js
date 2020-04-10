@@ -17,7 +17,7 @@ class SceneTitle extends GuaScene {
         // player 
         var w = GuaAnimation.new(game)
         w.x = 100 
-        w.y = 50  
+        w.y = 450  
         this.w = w 
         this.addElement(w)
 
