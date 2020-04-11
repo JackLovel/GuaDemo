@@ -15,11 +15,11 @@ class SceneTitle extends GuaScene {
         }
         this.skipCount = 4
         // player 
-        var w = GuaAnimation.new(game)
-        w.x = 100 
-        w.y = 450  
-        this.w = w 
-        this.addElement(w)
+        var b = GuaAnimation.new(game)
+        b.x = 180 
+        b.y = 200  
+        this.bird = b 
+        this.addElement(this.bird)
 
         this.setupInputs()
     }
@@ -41,12 +41,16 @@ class SceneTitle extends GuaScene {
 
     setupInputs() {
         var self = this 
+        var b = this.bird
         self.game.registerAction('a', function(keyStatus) {
-            self.w.move(-2, keyStatus)
+            b.move(-2, keyStatus)
         })    
 
         self.game.registerAction('d', function(keyStatus) {
-            self.w.move(2, keyStatus)
+            b.move(2, keyStatus)
+        })  
+        self.game.registerAction('j', function(keyStatus) {
+            b.jump() 
         })  
     }
 }
