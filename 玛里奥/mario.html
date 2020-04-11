@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>guario</title>
+</head>
+<body>
+    <canvas id="id-canvas" width="640" height="640"></canvas>
+    <script>
+        const e = sel => document.querySelector(sel)
+        const log = console.log.bind(console)
+
+        const ajax = request => {
+            let r = new XMLHttpRequest() 
+            r.open(request.method, request.url, true)
+            r.responseType = 'arraybuffer'
+            r.onreadystatechange = event => {
+                if (r.readyState == 4) {
+                    request.callback(r.response)
+                }
+            }
+            r.send()
+        } 
+
+        const drawBlock = (context, data, x, y, pixelWidth) => {
+            let w = pixelWidth 
+            let h = pixelWidth 
+            
+        }
+
+        const drawNes = bytes => {
+            let canvas = e('#id-canvas')
+            let context = canvas.getContext('2d')
+
+            let blockSize = 0 // 一个图块8像素
+            let pixelSize = 0 
+            let pixelWidth = 10 
+            let numberOfBytesPerBlock = 16 
+            for (var i = 0; i < blockSize; i++) {
+                for (var j = 0; j < blockSize; j++) { 
+                    // 算出 bytes 
+                    let x = j * pixelSize * pixelWidth
+                    let y = i * pixelSize * pixelWidth
+                    let index = (i * 8 + j) * numberOfBytesPerBlock
+                    draw(context, bytes.slice(index), x, y, pixelWidth)
+                }
+            }
+        }
+        const __main = () => {
+            let request = {
+                url: 'mario.nes',
+                callback(r) {
+                    let bytes = new Uint8Array(r)
+                    log('bytes', bytes)
+                }
+            }
+            ajax(request) 
+        }
+
+        __main()
+    </script>
+</body>
+</html>
