@@ -5,14 +5,22 @@
     <title>guario</title>
 </head>
 <body>
+    <!-- 32768 -->
+    <h3></h3>
     <canvas id="id-canvas" width="640" height="640"></canvas>
+    <div class="gua-controls">
+        <button data-action='change_offset', data-offset="-1024">-1024</button>
+        <button data-action='change_offset', data-offset="1024">1024</button>
+        <button data-action='change_offset', data-offset="-16">-16</button>
+        <button data-action='change_offset', data-offset="16">16</button>
+    </div>
     <script>
         const e = sel => document.querySelector(sel)
         const log = console.log.bind(console)
 
-        const ajax = request => {
+        const ajax = function(request) {
             let r = new XMLHttpRequest() 
-            r.open(request.method, request.url, true)
+            r.open('GET', request.url, true)
             r.responseType = 'arraybuffer'
             r.onreadystatechange = event => {
                 if (r.readyState == 4) {
@@ -23,17 +31,40 @@
         } 
 
         const drawBlock = (context, data, x, y, pixelWidth) => {
+            const colors = [
+                'white', 
+                '#FE1000', 
+                '#FFB010',
+                '#AA3030',
+            ]
             let w = pixelWidth 
             let h = pixelWidth 
-            
+            for (var i = 0; i < 8; i++) {
+                let p1 = data[i]
+                let p2 = data[i + 8]
+                for (var j = 0; j < 8; j++) { 
+                    // 8 bits per line 
+                    // 78 69 0100 1110 0100 0101 
+                    // 在 j 循环中，第一次画一个像素点
+                    // 算出 bytes 
+                    let c1 = (p1 >> (7 - j)) & 0b00000001
+                    let c2 = (p2 >> (7 - j)) & 0b00000001
+                    let pixel = (c2 << 1) + c1 
+                    let color = colors[pixel]
+                    context.fillStyle = color
+                    let px = x + j * w 
+                    let py = y + i * h 
+                    context.fillRect(px, py, w, h)
+                }
+            }
         }
 
-        const drawNes = bytes => {
+        const drawNes = function(bytes) {
             let canvas = e('#id-canvas')
             let context = canvas.getContext('2d')
-
-            let blockSize = 0 // 一个图块8像素
-            let pixelSize = 0 
+            // log(bytes)
+            let blockSize = 8 // 一个图块8像素
+            let pixelSize = 8 
             let pixelWidth = 10 
             let numberOfBytesPerBlock = 16 
             for (var i = 0; i < blockSize; i++) {
@@ -41,20 +72,41 @@
                     // 算出 bytes 
                     let x = j * pixelSize * pixelWidth
                     let y = i * pixelSize * pixelWidth
-                    let index = (i * 8 + j) * numberOfBytesPerBlock
-                    draw(context, bytes.slice(index), x, y, pixelWidth)
+                    let index = window.offset + (i * 8 + j) * numberOfBytesPerBlock
+                    // log(index)
+                    drawBlock(context, bytes.slice(index), x, y, pixelWidth)
                 }
             }
         }
-        const __main = () => {
+
+        const actions = {
+            change_offset(offset) {
+                window.offset += offset 
+                e('h3').innerHTML = window.offset
+                drawNes(window.bytes)
+            },
+        }
+
+        const bindEvents = () => {
+            e('.gua-controls').addEventListener('click', event => {
+                let action = event.target.dataset.action
+                let offset = Number(event.target.dataset.offset) 
+                actions[action] && actions[action](offset)
+            })
+        }
+
+        __main = function() {
+            window.offset = 32784
             let request = {
-                url: 'mario.nes',
+                url: "mario.nes",
                 callback(r) {
-                    let bytes = new Uint8Array(r)
-                    log('bytes', bytes)
-                }
+                    window.bytes = new Uint8Array(r)
+                    drawNes(bytes)
+                },
             }
             ajax(request) 
+
+            bindEvents()
         }
 
         __main()
