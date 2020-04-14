@@ -24,6 +24,10 @@
         data-action='draw_tile'
         data-type='tile'
         width="160" height="160"></canvas>
+    <canvas id="" 
+        data-action='draw_tile'
+        data-type='tile'
+        width='480' height='480'></canvas>
     <div class="gua-controls">
         <button data-action='change_offset', data-offset="-1024">-1024</button>
         <button data-action='change_offset', data-offset="1024">1024</button>
@@ -66,11 +70,13 @@
                     let c1 = (p1 >> (7 - j)) & 0b00000001
                     let c2 = (p2 >> (7 - j)) & 0b00000001
                     let pixel = (c2 << 1) + c1 
-                    let color = colors[pixel]
-                    context.fillStyle = color
-                    let px = x + j * w 
-                    let py = y + i * h 
-                    context.fillRect(px, py, w, h)
+                    if (pixel != 0) {
+                        let color = colors[pixel]
+                        context.fillStyle = color
+                        let px = x + j * w 
+                        let py = y + i * h 
+                        context.fillRect(px, py, w, h)
+                    }
                 }
             }
         }
