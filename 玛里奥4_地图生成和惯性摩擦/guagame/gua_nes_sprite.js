@@ -23,6 +23,9 @@ class GuaNesSprite {
         // 重力和加速度
         this.gy = 10 
         this.vy = 0 
+        // 加速和摩擦
+        this.vx = 0
+        this.mx = 0 
     }
     static new(game) {
         return new this(game)
@@ -35,10 +38,19 @@ class GuaNesSprite {
         return this.animations[this.animationName]
     }
     update() {
+        // 更新x 加速和摩擦
+        this.vx += this.mx 
+        // 说明摩擦力已经把速度降至0以下，停止摩擦
+        if (this.vx * this.mx > 0) {
+            this.vx = 0 
+            this.mx = 0 
+        } else {
+            this.x += this.vx 
+        }
         // 更新受力
         this.y += this.vy 
         this.vy += this.gy * 0.2
-        var h = 476 
+        var h = 100 
         if (this.y > h) {
             this.y = h 
         }
@@ -74,8 +86,16 @@ class GuaNesSprite {
         context.restore()
     }
     move(x, keyStatus) {
-        this.flipX = x < 0 
-        this.x += x 
+        this.flipX = (x < 0) 
+        // this.x += x 
+        let factor = 0.5
+        let s = factor * x
+        if (keyStatus == 'down') {
+            this.vx += s 
+            this.mx = -s/3 
+        } else {
+
+        }
     }
     changeAnimation(name) {
         this.animationName = name 
