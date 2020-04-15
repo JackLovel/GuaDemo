@@ -5,9 +5,9 @@ class GuaTileMap {
         // 40:00 
         this.tiles = [
             1, 1, 1, 0, 1,
-            1, 3, 4, 0, 1,
-            1, 3, 4, 0, 1,
-            1, 1, 4, 0, 1,
+            1, 2, 3, 0, 1,
+            1, 2, 3, 0, 1,
+            1, 1, 3, 0, 1,
         ] 
         this.th = 5 
         this.tw = this.tiles.length / this.th 
@@ -32,7 +32,7 @@ class GuaTileMap {
             if (index != 0) {
                 let x = Math.floor(i / h) * this.tileSize
                 let y = (i % h) * this.tileSize
-                let image = this.tileImages[index - 1]
+                let image = this.tileImages[index]
                 this.game.context.drawImage(image.texture, x, y)
             }
         }
