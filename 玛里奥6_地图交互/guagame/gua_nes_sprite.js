@@ -1,6 +1,8 @@
 class GuaNesSprite {
-    constructor(game) {
+    constructor(game, map) {
         this.game = game 
+        this.map = map 
+        this.tileSize = map.tileSize
         this.tileOffset = 32784
         this.data = window.bytes.slice(this.tileOffset)
         this.animations = {
@@ -27,8 +29,8 @@ class GuaNesSprite {
         this.vx = 0
         this.mx = 0 
     }
-    static new(game) {
-        return new this(game)
+    static new(...args) {
+        return new this(...args)
     }
     jump() {
         this.vy = -10 
@@ -36,6 +38,19 @@ class GuaNesSprite {
     }
     frames() {
         return this.animations[this.animationName]
+    }
+    // 更新受力
+    updateGravity() {
+        // 拿到角色在地图中的坐标 i j 
+        let i = Math.floor(this.x / this.tileSize)
+        let j = Math.floor(this.y / this.tileSize) + 2
+        let onTheGound = this.map.onTheGound(i, j)
+        if (onTheGound && this.vy > 0) {
+            this.vy = 0 
+        } else {
+            this.y += this.vy 
+            this.vy += this.gy * 0.2
+        }
     }
     update() {
         // 更新x 加速和摩擦
@@ -48,12 +63,7 @@ class GuaNesSprite {
             this.x += this.vx 
         }
         // 更新受力
-        this.y += this.vy 
-        this.vy += this.gy * 0.2
-        var h = 100 
-        if (this.y > h) {
-            this.y = h 
-        }
+        this.updateGravity() 
        // 
        this.frameCount-- 
        if (this.frameCount == 0) {
