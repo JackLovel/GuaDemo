@@ -1,6 +1,7 @@
 class GuaTileMap {
     constructor(game) {
         this.game = game 
+        this.offsetX = 10 
         // 8 x 5 
         // 40:00 
         this.tiles = [
@@ -42,14 +43,20 @@ class GuaTileMap {
         return tile != 0 
     }
     update() {
-
+        this.offsetX -= 1 
     }
     draw() {
         let h = this.th 
-        for (var i = 0; i < this.tiles.length; i++) {
+        let offsetIndex = Math.abs(parseInt(this.offsetX / this.tileSize)) 
+        let numberOfTiles = h * (16 + 1)
+        if (offsetIndex + numberOfTiles < this.tiles.length) {
+            numberOfTiles = this.tiles.length
+        }
+        for (var i = offsetIndex; i < numberOfTiles; i++) {
             let index = this.tiles[i]
             if (index != 0) {
                 let x = Math.floor(i / h) * this.tileSize
+                x += this.offsetX
                 let y = (i % h) * this.tileSize
                 let image = this.tileImages[index]
                 this.game.context.drawImage(image.texture, x, y)
