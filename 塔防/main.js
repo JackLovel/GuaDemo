@@ -45,21 +45,13 @@ var __main = function() {
         t3: 'tiles/t3.png',
         t4: 'tiles/t4.png',
     }
-    let request = {
-        url: "mario.nes",
-        callback(r) {
-            window.bytes = new Uint8Array(r)
-            log('mario file', window.bytes.length)
-            var game = GuaGame.instance(window.fps, images, function(g) {
-                // var s = Scene.new(g)
-                // var s = SceneTitle.new(g)
-                var s = SceneEditor.new(g)
-                g.runWithScene(s)
-            })
-            enableDebugMode(game, true)
-        },
-    }
-    ajax(request) 
+
+    var game = GuaGame.instance(window.fps, images, function(g) {
+        // var s = Scene.new(g)
+        var s = SceneTitle.new(g)
+        // var s = SceneEditor.new(g)
+        g.runWithScene(s)
+    })
 }
 
 __main()
