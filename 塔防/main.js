@@ -16,18 +16,6 @@ var enableDebugMode = function(game, enable) {
     })
 }
 
-const ajax = function(request) {
-    let r = new XMLHttpRequest() 
-    r.open('GET', request.url, true)
-    r.responseType = 'arraybuffer'
-    r.onreadystatechange = event => {
-        if (r.readyState == 4) {
-            request.callback(r.response)
-        }
-    }
-    r.send()
-} 
-
 var __main = function() {
     var images = {
         // 背景 
@@ -44,6 +32,8 @@ var __main = function() {
         t2: 'tiles/t2.png',
         t3: 'tiles/t3.png',
         t4: 'tiles/t4.png',
+        //
+        gun: 'img/gun.png',
     }
 
     var game = GuaGame.instance(window.fps, images, function(g) {

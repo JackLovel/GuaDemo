@@ -14,6 +14,11 @@ class GuaScene {
         img.scene = this
 		this.elements.push(img)
     }
+    removeElement(node) {
+        this.elements = this.elements.filter(e => {
+            return e != node
+        })
+    }
     draw(){
         for (var e of this.elements) {
             e.draw()

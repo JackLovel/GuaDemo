@@ -7,6 +7,12 @@ class SceneTitle extends GuaScene {
         // bg 
         var bg = GuaImage.new(this.game, 'bg')
         this.addElement(bg)
+        // gun ui 
+        var gun = GuaImage.new(this.game, 'gun')
+        gun.x = 500 
+        gun.y = 300
+        this.gun = gun  
+        this.addElement(gun)
         //
         this.setupInputs()
     }
@@ -17,13 +23,28 @@ class SceneTitle extends GuaScene {
     }
 
     setupInputs() {
+        let self = this 
         // mouse inputs 
+        let startDrag = false 
         this.game.registerMouse(function(event, status) {
-            log('mouse event', status, event)
+            let x = event.offsetX
+            let y = event.offsetY
+            if (status == 'down') {
+                let 点到了 = self.gun.pointInFrame(x, y) 
+                if (点到了) {
+                    startDrag = true 
+                    self.tower = self.gun.clone() 
+                    self.addElement(self.tower)
+                } 
+            } else if (status == 'move') {
+                self.tower.x = x 
+                self.tower.y = y 
+            } else {
+                startDrag = false
+                // log('删除 tower', self.tower)
+                self.removeElement(self.tower)
+            }
         })
         // keyboard inputs 
-        var self = this 
-        var b = this.mario
-        let playerSpeed = 5
     }
 }
