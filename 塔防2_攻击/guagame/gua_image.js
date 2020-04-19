@@ -11,14 +11,19 @@ class GuaImage {
         this.flipY = false 
         this.rotation = 0 
     }
+    center() {
+        let x = this.x + this.w / 2
+        let y = this.y + this.h / 2
+        return Vector.new(x, y)
+    }
     clone() {
         let c = GuaImage.new(this.game, this.name)
         c.x = this.x 
         c.y = this.y 
         return c 
     }
-    static new(game, name) {
-        var i = new this(game, name)
+    static new(...args) {
+        var i = new this(...args)
         return i
     }
     pointInFrame(x, y) {
