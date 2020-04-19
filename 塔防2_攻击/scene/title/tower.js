@@ -22,9 +22,10 @@ class Tower1 extends GuaImage {
     }
     canAttack(enemy) {
         let e = enemy
-        let enemyExist = e !== null
+        let enemyExist = e !== null && !e.dead
         if (enemyExist) {
-            return this.center().distance(e.center()) < this.range
+            let can = this.center().distance(e.center()) < this.range
+            return can 
         } else {
             return false 
         }

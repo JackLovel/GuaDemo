@@ -11,6 +11,9 @@ class Enemy extends GuaImage {
         this.destination = 500 
     }
     update() {
+        if (this.dead) {
+            return 
+        }
         this.x += this.speed
         if (this.x > this.destination) {
             log('敌人已经到达')
@@ -25,6 +28,9 @@ class Enemy extends GuaImage {
     }
     die() {
         this.dead = true 
+        // 先应该播放闪动的动画
+        // 然后还应该把元素移除出场景中
+        this.scene.removeElement(this)
         log('敌人死了')
     }
 }
