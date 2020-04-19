@@ -6,8 +6,10 @@ class Tower1 extends GuaImage {
     }
     setup() {
         this.attack = 1 
-        this.range = 50
+        this.range = 150
         this.target = null 
+        this._cooldown = 3
+        this._fireCount = 0 
     }
     drawAttackRange() {
         let context = this.game.context 
@@ -35,11 +37,20 @@ class Tower1 extends GuaImage {
         }
     }
     canAttack(enemy) {
+        // 
         let e = enemy
         let enemyExist = e !== null && !e.dead
         if (enemyExist) {
             let can = this.center().distance(e.center()) < this.range
-            return can 
+            // 
+               // 检查是否冷却
+            if (this._fireCount != 0) {
+                this._fireCount--
+                return false
+            } else {
+                this._fireCount = this._cooldown
+                return can 
+            }
         } else {
             return false 
         }

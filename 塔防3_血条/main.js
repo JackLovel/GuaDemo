@@ -34,6 +34,7 @@ var __main = function() {
         t4: 'tiles/t4.png',
         //
         gun: 'img/gun.png',
+        soldier: 'img/soldier.png',
     }
 
     var game = GuaGame.instance(window.fps, images, function(g) {
