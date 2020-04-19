@@ -5,10 +5,11 @@ class Tower1 extends GuaImage {
         this.setup()
     }
     setup() {
+        // this.rotation = 90 
         this.attack = 1 
         this.range = 150
         this.target = null 
-        this._cooldown = 3
+        this._cooldown = 8
         this._fireCount = 0 
     }
     drawAttackRange() {
@@ -27,6 +28,7 @@ class Tower1 extends GuaImage {
     }
     update() {
         let target = this.target
+        this.updateRotation(target)
         // TODO，当敌人渐渐运去，你要设置 target = null 
         if (this.canAttack(target)) {
             log('攻击敌人')
@@ -34,6 +36,14 @@ class Tower1 extends GuaImage {
             if (target.dead) {
                 this.target = null 
             }
+        }
+    }
+    updateRotation(target) {
+        if (target !== null) {
+            let dx = target.x - this.x 
+            let dy = target.y - this.y 
+            let r = 向量夹角(dx, dy)
+            this.rotation = r 
         }
     }
     canAttack(enemy) {

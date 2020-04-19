@@ -5,8 +5,9 @@ class Enemy extends GuaImage {
         this.setup()
     }
     setup() {
-        this.y = 200 
-        this.speed = 3 
+        this.dead = false 
+        this.y = 170
+        this.speed = 1 
         this.maxHP = 8 
         this.hp = this.maxHP
         this.destination = 500 
