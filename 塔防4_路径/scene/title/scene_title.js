@@ -13,13 +13,17 @@ class SceneTitle extends GuaScene {
         this.setupHUD()
         this.setupInputs()
     }
-    setupTower() {
+    addTower(x, y) {
         let t1 = Tower1.new(this.game)
-        t1.x = 100 
-        t1.y = 220
+        t1.x = x 
+        t1.y = y
         this.addElement(t1) 
         //  
         this.towers.push(t1)
+    }
+    setupTower() {
+        this.addTower(100, 80)
+        this.addTower(100, 200)
     }
     setupBG() {
         var bg = GuaImage.new(this.game, 'bg')
@@ -73,6 +77,8 @@ class SceneTitle extends GuaScene {
                 startDrag = false
                 // log('删除 tower', self.tower)
                 self.removeElement(self.tower)
+                // 添加一个 tower 
+                self.addTower(x, y)
             }
         })
         // keyboard inputs 
