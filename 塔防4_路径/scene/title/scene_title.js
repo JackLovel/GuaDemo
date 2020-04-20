@@ -64,6 +64,8 @@ class SceneTitle extends GuaScene {
         let self = this 
         // mouse inputs 
         let startDrag = false 
+        let ox = 0 
+        let oy = 0
         this.game.registerMouse(function(event, status) {
             let x = event.offsetX
             let y = event.offsetY
@@ -73,10 +75,13 @@ class SceneTitle extends GuaScene {
                     startDrag = true 
                     self.tower = self.gun.clone() 
                     self.addElement(self.tower)
+                    // 设置偏移的 x 和 y
+                    ox = self.gun.x - x 
+                    oy = self.gun.y - y 
                 } 
             } else if (status == 'move') {
-                self.tower.x = x 
-                self.tower.y = y 
+                self.tower.x = x + ox 
+                self.tower.y = y + oy
             } else {
                 startDrag = false
                 // log('删除 tower', self.tower)

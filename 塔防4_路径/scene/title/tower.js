@@ -22,7 +22,7 @@ class Tower1 extends GuaImage {
         context.fill()
     }
     draw() {
-        this.drawAttackRange()
+        // this.drawAttackRange()
         // 
         super.draw() 
     }
