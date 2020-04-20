@@ -40,9 +40,9 @@ class Tower1 extends GuaImage {
     }
     updateRotation(target) {
         if (target !== null) {
-            let dx = target.x - this.x 
-            let dy = target.y - this.y 
-            let r = 向量夹角(dx, dy)
+            let v = target.center().sub(this.center()).normal()
+            let r = 向量夹角(v.x, v.y)
+            log('update rotation', r, v)
             this.rotation = r 
         }
     }
