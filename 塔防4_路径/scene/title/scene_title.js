@@ -14,6 +14,8 @@ class SceneTitle extends GuaScene {
         this.setupInputs()
     }
     addTower(x, y) {
+        x = Math.floor(x / 100) * 100 
+        y = Math.floor(y / 100) * 100 
         let t1 = Tower1.new(this.game)
         t1.x = x 
         t1.y = y
@@ -30,9 +32,11 @@ class SceneTitle extends GuaScene {
         this.addElement(bg)
     }
     setupGameElements() {
-        for (var i = 0; i < 3; i++) {
+        let offset = [0, 30]
+        for (var i = 0; i < 23; i++) {
             let e1 = Enemy.new(this.game)
             e1.x -= i * 50
+            e1.y += offset[i % 2]
             this.addElement(e1)  
             this.enemies.push(e1)  
         }

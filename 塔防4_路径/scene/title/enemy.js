@@ -8,7 +8,7 @@ class Enemy extends GuaImage {
         this.dead = false 
         this.y = 170
         this.speed = 1 
-        this.maxHP = 8 
+        this.maxHP = 18 
         this.hp = this.maxHP
         this.destination = 500 
     }
