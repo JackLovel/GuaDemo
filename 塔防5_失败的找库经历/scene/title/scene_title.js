@@ -4,6 +4,8 @@ class SceneTitle extends GuaScene {
         this.setup() 
     }
     setup() {
+        // 初始地图
+        this.map = TDMap.new(this.game, 6, 4)
         // 先初始化属性
         this.enemies = [] 
         this.towers = [] 
@@ -16,8 +18,12 @@ class SceneTitle extends GuaScene {
     addTower(x, y) {
         let t1 = Tower1.new(this.game)
         let towerSize = t1.w 
-        x = Math.floor(x / towerSize) * towerSize 
-        y = Math.floor(y / towerSize) * towerSize 
+        let i = Math.floor(x / towerSize) * towerSize 
+        let j = Math.floor(y / towerSize) * towerSize
+        // 设置地图属性
+        this.map.addTower(i, j)
+        x = i * towerSize 
+        y = j * towerSize 
         t1.x = x 
         t1.y = y
         this.addElement(t1) 

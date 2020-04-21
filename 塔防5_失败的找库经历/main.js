@@ -33,7 +33,7 @@ var __main = function() {
         t3: 'tiles/t3.png',
         t4: 'tiles/t4.png',
         //
-        gun: 'img/gun2.png',
+        gun: 'img/gun.png',
         soldier: 'img/soldier.png',
     }
 
