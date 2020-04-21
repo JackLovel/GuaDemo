@@ -5,6 +5,7 @@ class Enemy extends GuaImage {
         this.setup()
     }
     setup() {
+        this.map = null 
         this.stepIndex = 0
         this.steps = [
             [0, 170],
@@ -52,11 +53,11 @@ class Enemy extends GuaImage {
         this.x += this.speed * signX
         this.y += this.speed * signY
         if (this.x == dx && this.y == dy) {
-            log('敌人已经到达')
+            // log('敌人已经到达')
             this.stepIndex++
             // 判断敌人是否到达终点
             if (this.stepIndex == this.steps.length) {
-                log('敌人到达终点')
+                // log('敌人到达终点')
                 this.die() 
             }
         }
@@ -73,6 +74,6 @@ class Enemy extends GuaImage {
         // 先应该播放闪动的动画
         // 然后还应该把元素移除出场景中
         this.scene.removeElement(this)
-        log('敌人死了')
+        // log('敌人死了')
     }
 }

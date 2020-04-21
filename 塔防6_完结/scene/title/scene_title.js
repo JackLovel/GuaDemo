@@ -18,8 +18,8 @@ class SceneTitle extends GuaScene {
     addTower(x, y) {
         let t1 = Tower1.new(this.game)
         let towerSize = t1.w 
-        let i = Math.floor(x / towerSize) * towerSize 
-        let j = Math.floor(y / towerSize) * towerSize
+        let i = Math.floor(x / towerSize) 
+        let j = Math.floor(y / towerSize) 
         // 设置地图属性
         this.map.addTower(i, j)
         x = i * towerSize 
@@ -29,6 +29,16 @@ class SceneTitle extends GuaScene {
         this.addElement(t1) 
         //  
         this.towers.push(t1)
+        // 调用 pathfinding 
+        let e = this.enemies[0]
+        if (typeof e != 'undefined') {
+            let x = e.x 
+            let y = e.y 
+            let i = Math.floor(x / towerSize) 
+            let j = Math.floor(y / towerSize) 
+            let path = this.map.pathfinding(i, j)
+            log('path', path)
+        }
     }
     setupTower() {
         this.addTower(100, 80)
@@ -44,6 +54,8 @@ class SceneTitle extends GuaScene {
             let e1 = Enemy.new(this.game)
             e1.x -= i * 50
             e1.y += offset[i % 2]
+            // 给enemy 增加属性
+            e1.map = this
             this.addElement(e1)  
             this.enemies.push(e1)  
         }

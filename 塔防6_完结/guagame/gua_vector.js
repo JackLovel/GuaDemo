@@ -23,7 +23,7 @@ class Vector {
     }
     normal() {
         let f = this.length() / 1 
-        log('normal', f)
+        // log('normal', f)
         let v = Vector.new(this.x / f, this.y / f)
         return v 
     }
