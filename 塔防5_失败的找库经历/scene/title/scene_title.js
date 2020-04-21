@@ -14,9 +14,10 @@ class SceneTitle extends GuaScene {
         this.setupInputs()
     }
     addTower(x, y) {
-        x = Math.floor(x / 100) * 100 
-        y = Math.floor(y / 100) * 100 
         let t1 = Tower1.new(this.game)
+        let towerSize = t1.w 
+        x = Math.floor(x / towerSize) * towerSize 
+        y = Math.floor(y / towerSize) * towerSize 
         t1.x = x 
         t1.y = y
         this.addElement(t1) 
