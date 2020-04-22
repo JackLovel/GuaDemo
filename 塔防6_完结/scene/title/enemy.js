@@ -2,18 +2,23 @@ class Enemy extends GuaImage {
     constructor(game, name) {
         name = name || 'soldier'
         super(game, name)
+        this.tileSize = 0
         this.setup()
+    }
+    resetPath(path) {
+        let steps = [] 
+        let s = this.tileSize
+        for (let p of path) {
+            let c = [p.x * s, p.y * s]
+            steps.push(c)
+        }
+        this.steps = steps
+        this.stepIndex = 0 
     }
     setup() {
         this.map = null 
         this.stepIndex = 0
-        this.steps = [
-            [0, 170],
-            [0, 0],
-            [300, 0],
-            [300, 170],
-            [600, 170],
-        ]
+        this.steps = []
         this.dead = false 
         // this.x = 
         this.y = 170
@@ -39,6 +44,9 @@ class Enemy extends GuaImage {
     }
     update() {
         if (this.dead) {
+            return 
+        }
+        if (this.steps.length == 0) {
             return 
         }
         let [dx, dy] = this.steps[this.stepIndex]

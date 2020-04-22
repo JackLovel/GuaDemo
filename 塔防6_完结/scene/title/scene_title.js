@@ -4,6 +4,8 @@ class SceneTitle extends GuaScene {
         this.setup() 
     }
     setup() {
+        this.count = 0 
+        this.debugPath = [] 
         // 初始地图
         this.map = TDMap.new(this.game, 6, 4)
         // 先初始化属性
@@ -29,16 +31,29 @@ class SceneTitle extends GuaScene {
         this.addElement(t1) 
         //  
         this.towers.push(t1)
-        // 调用 pathfinding 
-        let e = this.enemies[0]
-        if (typeof e != 'undefined') {
+        // debug map grid 
+        this.map.showGrid() 
+        // find path for enemies 
+        this.findPathForEnemies() 
+    }
+    findPathForEnemies() {
+        // 为每一个敌人单独寻路 pathfinding 
+        let s = this.map.tileSize
+        for (let e of this.enemies) {
             let x = e.x 
             let y = e.y 
-            let i = Math.floor(x / towerSize) 
-            let j = Math.floor(y / towerSize) 
+            let i = Math.floor(x / s) 
+            let j = Math.floor(y / s) 
             let path = this.map.pathfinding(i, j)
             log('path', path)
+            // 设置敌人的 steps 并且重置敌人的 stepIndex 
+            e.resetPath(path)
+            // 用于 debug 的临时性变量
+            this.debugPath = path 
         }
+    }
+    drawDebugPath(path) {
+
     }
     setupTower() {
         this.addTower(100, 80)
@@ -50,14 +65,25 @@ class SceneTitle extends GuaScene {
     }
     setupGameElements() {
         let offset = [0, 30]
-        for (var i = 0; i < 23; i++) {
+        for (var i = 0; i < 1; i++) {
             let e1 = Enemy.new(this.game)
+            e1.tileSize = this.map.tileSize
             e1.x -= i * 50
             e1.y += offset[i % 2]
-            // 给enemy 增加属性
-            e1.map = this
+            
             this.addElement(e1)  
             this.enemies.push(e1)  
+        }
+    }
+    draw() {
+        super.draw() 
+        let s = this.map.tileSize
+        for (let p of this.debugPath) {
+            let context = this.game.context 
+            context.fillStyle = 'rgba(200, 200, 200, 0.5)'
+            let x = p.x * s 
+            let y = p.y * s 
+            context.fillRect(x, y, s, s)
         }
     }
     setupHUD() {
@@ -71,6 +97,19 @@ class SceneTitle extends GuaScene {
     }
     update() {
         super.update() 
+        this.count++
+        if (this.count == 60) {
+            this.count = 0 
+            let e1 = Enemy.new(this.game)
+            e1.tileSize = this.map.tileSize
+            // e1.x -= i * 50
+            // e1.y += offset[i % 2]
+            
+            this.addElement(e1)  
+            this.enemies.push(e1)  
+            // find path for enemies 
+            this.findPathForEnemies() 
+        }
         // 给所有没有target的tower 寻找目标
         for (let t of this.towers) {
             if (t.target === null) {
@@ -78,7 +117,6 @@ class SceneTitle extends GuaScene {
             }
         }
     }
-
     setupInputs() {
         let self = this 
         // mouse inputs 

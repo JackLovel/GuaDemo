@@ -3,6 +3,7 @@ class TDMap {
         name = name || 'gun'
         this.w = w 
         this.h = h 
+        this.tileSize = 100
         this.setup() 
     }
     static new(...args) {
@@ -12,7 +13,7 @@ class TDMap {
         // log('grid', this.grid[14][12])
         // log('grid j, i', j, i)
         // 10 表示 tower 
-        this.grid[j][i] = 10 
+        this.grid[i][j] = 10 
     }
     setup() {
         // 0 不能走 
@@ -42,7 +43,13 @@ class TDMap {
         }
         return grid 
     }
+    showGrid() {
+        log('map show grid\n', this.normalGrid())
+    }
     pathfinding(i, j) {
+        // if (i < 0) {
+        //     i = 0 
+        // }
         let map = this.normalGrid() 
         let graph = new Graph(map)
         let start = graph.grid[i][j]
