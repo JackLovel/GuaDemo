@@ -23,12 +23,14 @@ var GuaAddAnimation = (images, animation) => {
     for (var action of a.actions) {
         var name = action.name
         var numberOfFrames = action.numberOfFrames
+        log('actions', action)
         // pathFormat: 'img/zombie/[action]/zombie_[action]_[index].png',
         var p = pathFormat.replace('[action]', name).replace('[action]', name)
         for (var i = 0; i < numberOfFrames; i++) {
             var index = '0'.repeat(String(numberOfFrames).length - String(i).length) + String(i)
             // var path = `${p}${index}`
-            var key = a.name + index 
+            // var key = a.name + index 
+            var key = keyName + name + index 
             var value = p.replace('[index]', index)
             images[key] = value 
         }
