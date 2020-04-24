@@ -16,26 +16,45 @@ var enableDebugMode = function(game, enable) {
     })
 }
 
-var __main = function() {
-    var images = {
-        // 背景 
-        cave: 'img/cave.png',
-        // flappy bird image 
-        bg: 'bird/bg.png',
-        pipe: 'bird/pipe.png', 
-        ground: 'bird/ground.png',
-        b1: 'bird/b1.png',
-        b2: 'bird/b2.png',
-        b3: 'bird/b3.png',
-        // 
-        t1: 'tiles/t1.png',
-        t2: 'tiles/t2.png',
-        t3: 'tiles/t3.png',
-        t4: 'tiles/t4.png',
-        //
-        gun: 'img/gun.png',
-        soldier: 'img/soldier.png',
+var GuaAddAnimation = (images, animation) => {
+    var a = animation
+    var pathFormat = a.pathFormat
+    var keyName = a.name
+    for (var action of a.actions) {
+        var name = action.name
+        var numberOfFrames = action.numberOfFrames
+        // pathFormat: 'img/zombie/[action]/zombie_[action]_[index].png',
+        var p = pathFormat.replace('[action]', name).replace('[action]', name)
+        for (var i = 0; i < numberOfFrames; i++) {
+            var index = '0'.repeat(String(numberOfFrames).length - String(i).length) + String(i)
+            // var path = `${p}${index}`
+            var key = a.name + index 
+            var value = p.replace('[index]', index)
+            images[key] = value 
+        }
     }
+}
+var __main = function() {
+    // zombie 
+    let animationZombie = {
+        name: 'bhzombie', 
+        pathFormat: 'img/zombie/[action]/zombie_[action]_[index].png',
+        actions: [
+            {
+                name: 'walking',
+                numberOfFrames: 15, 
+            },
+            {
+                name: 'attack',
+                numberOfFrames: 11, 
+            },
+        ]
+    }
+    var images = {
+        // zombie 
+        // bhzombie00: 'img/BucketheadZombie/zombie00.png',
+    }
+    GuaAddAnimation(images, animationZombie)
 
     var game = GuaGame.instance(window.fps, images, function(g) {
         // var s = Scene.new(g)

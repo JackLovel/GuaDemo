@@ -4,9 +4,9 @@ class SceneTitle extends GuaScene {
         this.setup() 
     }
     setup() {
-       let zombie = Zombie.new(this.game)
-       zombie.x = 200 
-       zombie.y = 200 
-       this.addElement(zombie)
+        let zombie = Zombie.new(this.game)
+        zombie.x = 200 
+        zombie.y = 200 
+        this.addElement(zombie)
     }
 }

@@ -1,9 +1,9 @@
 class GuaAnimation {
     constructor(game, animation) {
         // let animationZombie = {
-        //     numberOfFrames: 14, 
+        //     numberOfFrames: 14,
         //     name: 'bhzombie', 
-        //     pathFormat: 'img/BucketheadZombie/zombie{}.png'
+        //     pathFormat: 'img/zombie/zombie_{}.png',
         // }
         let a = animation
         this.game = game 
@@ -11,8 +11,8 @@ class GuaAnimation {
             idle: [],
         }
         var prefix = a.name 
-        for (var i = 1; i < a.numberOfFrames; i++) {
-            // bhzombie00 
+        for (var i = 0; i < a.numberOfFrames; i++) {
+            // bhhzombie00 
             var index = '0'.repeat(String(a.numberOfFrames).length - String(i).length) + String(i)
             var name = `${prefix}${index}`
             var t = game.textureByName(name)
@@ -29,23 +29,22 @@ class GuaAnimation {
         this.rotation = 0 
         this.alpha = 1 
     }
-    static new(game) {
-        return new this(game)
+    static new(...args) {
+        return new this(...args)
     }
     frames() {
         return this.animations[this.animationName]
     }
     updateFrame() {
-       // 
-       this.frameCount-- 
-       if (this.frameCount == 0) {
-           this.frameCount = 3
-           this.frameIndex = (this.frameIndex + 1) % this.frames().length
-           this.texture = this.frames()[this.frameIndex]
-       }
+        this.frameCount-- 
+        if (this.frameCount == 0) {
+            this.frameCount = 3
+            this.frameIndex = (this.frameIndex + 1) % this.frames().length
+            this.texture = this.frames()[this.frameIndex]
+        }
     }
     update() {
-        this.updateFrame() 
+        this.updateFrame()
     }
     draw() {
         var context = this.game.context
