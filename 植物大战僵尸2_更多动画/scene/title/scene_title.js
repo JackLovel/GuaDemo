@@ -4,9 +4,14 @@ class SceneTitle extends GuaScene {
         this.setup() 
     }
     setup() {
+        this.setupBG() 
         this.setupInputs() 
         this.setupZombies()
         this.setupPlants()
+    }
+    setupBG() {
+        let bg = GuaImage.new(this.game, 'bg1')
+        this.addElement(bg)
     }
     setupPlants() {
         let p = Peashooter.new(this.game)

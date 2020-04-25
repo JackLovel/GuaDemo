@@ -64,13 +64,12 @@ var __main = function() {
         ]
     }
     var images = {
-        // zombie 
-        // bhzombie00: 'img/BucketheadZombie/zombie00.png',
+        bg1: 'img/background1.jpg',
     }
+    //
     GuaAddAnimation(images, animationZombie)
     GuaAddAnimation(images, animationPeashooter)
-    log('images', images)
-
+    // log('images', images)
     var game = GuaGame.instance(window.fps, images, function(g) {
         // var s = Scene.new(g)
         var s = SceneTitle.new(g)
