@@ -22,8 +22,8 @@ class SceneTitle extends GuaScene {
     }
     setupZombies() {
         let zombie = Zombie.new(this.game)
-        zombie.x = 1200 
-        zombie.y = 200 
+        zombie.x = 600 
+        zombie.y = 230 
         this.addElement(zombie)
     
         window.z = zombie
