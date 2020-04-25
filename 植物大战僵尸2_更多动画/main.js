@@ -37,6 +37,17 @@ var GuaAddAnimation = (images, animation) => {
     }
 }
 var __main = function() {
+    // peashooter 
+    let animationPeashooter = {
+        name: 'peashooter', 
+        pathFormat: 'img/peashooter/[action]/peashooter_[action]_[index].png',
+        actions: [
+            {
+                name: 'idle',
+                numberOfFrames: 13, 
+            },
+        ]
+    }
     // zombie 
     let animationZombie = {
         name: 'bhzombie', 
@@ -57,6 +68,8 @@ var __main = function() {
         // bhzombie00: 'img/BucketheadZombie/zombie00.png',
     }
     GuaAddAnimation(images, animationZombie)
+    GuaAddAnimation(images, animationPeashooter)
+    log('images', images)
 
     var game = GuaGame.instance(window.fps, images, function(g) {
         // var s = Scene.new(g)
