@@ -15,14 +15,14 @@ class SceneTitle extends GuaScene {
     }
     setupPlants() {
         let p = Peashooter.new(this.game)
-        p.x = 50
+        p.x = 350
         p.y = 200 
         this.addElement(p)
         // window.z = zombie
     }
     setupZombies() {
         let zombie = Zombie.new(this.game)
-        zombie.x = 200 
+        zombie.x = 1200 
         zombie.y = 200 
         this.addElement(zombie)
     
