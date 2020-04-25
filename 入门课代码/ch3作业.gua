@@ -1,0 +1,175 @@
+const ensure = function(condition, message) {
+    if (condition) {
+        log('成功')
+    } else {
+        log('成测失败', message)
+    }
+}
+
+const sum = function(array){
+    var s = 0
+
+    var i = 0
+
+    while (i < array.length()) {
+        var n = array[i]
+        s = s + n
+        i = i + 1
+    }
+
+    return s
+}
+
+const product = function(array) {
+    // 鍏堣缃竴涓彉閲� s 鐢ㄦ潵瀛樻暟缁勭殑鍜�
+    var s = 1
+    var i = 0
+    while (i < array.length()) {
+        var n = array[i]
+        s = s * n
+        i = i + 1
+
+    }
+
+    return s
+}
+
+//var arr = [1,2,3,4]
+// log(product(arr))
+
+
+// ex2
+const abs = function(n) {
+    if (n < 0) {
+        n = -n
+    }
+
+    return n
+}
+
+// log(abs(-1))
+// log(abs(2))
+// log(abs(0))
+
+// ex3
+const average = function(array) {
+    var n = sum(array)
+    var l = array.length()
+    return n / l
+}
+
+const testAverage = function() {
+    ensure(average([1,2,3]) == 2, '测试错误')
+}
+
+// testAverage()
+//var arr = [1, 2, 3, 4]
+//log(average(arr))
+
+// ex4
+const min = function(array) {
+    var s = array[0]
+    var i = 0
+    var n = 0
+    while(i < array.length()) {
+        n = array[i]
+        if (n < s) {
+            s = n
+        }
+
+        i = i + 1
+    }
+
+    return s
+}
+
+// var arr = [5,2,3,4]
+// log(min(arr))
+const testMin = function() {
+    ensure(min([1,2,3]) == 1, 'test min 1')
+}
+
+
+// ex5
+// 1 - 2 + 3 - 4
+const sum1 = function(n) {
+    var s = 0
+    var i = 1
+    while(i < n + 1) {
+        if (i % 2 != 0) {
+            s = s + i
+        } else {
+            s = s - i
+        }
+
+        i = i + 1
+    }
+
+    return s
+}
+
+const testSum1 = function() {
+    ensure(sum1(1) == 1, "错误1")
+    ensure(sum1(2) == -1, "错误2")
+    ensure(sum1(3) == 2, "错误3")
+    // ensure(sum1(1) == 1, "错误1")
+    // ensure(sum1(1) == 1, "错误1")
+}
+// var arr = [1,2,3]
+// log(sum1(2))
+
+const sum2 = function(n) {
+    var s = 1
+    var i = 1
+
+    while(i < n + 1) {
+        if (i < 2) {
+            s = s
+            i = i + 1
+            continue
+        }
+
+        if (i % 2 != 0) {
+            s = s - i
+        } else {
+            s = s + i
+        }
+
+        i = i + 1
+    }
+
+    return s
+}
+
+const testSum2 = function() {
+    log(ensure(sum2(1) == 1, '错误1'))
+    log(ensure(sum2(2) == 3, '错误2'))
+    log(ensure(sum2(3) == 0, '错误3'))
+    log(ensure(sum2(4) == 4, '错误4'))
+}
+
+const fac = function(n) {
+    var s = 1
+    var i = 1
+    while(i < n + 1) {
+        s = s * i
+        i = i + 1
+    }
+
+    return s
+}
+
+const facTest = function() {
+    ensure(fac(1) == 1, '错误1')
+    ensure(fac(2) == 2, '错误2')
+    ensure(fac(3) == 6, '错误3')
+}
+var main = function() {
+    // testMin()
+    // testSum1()
+    // log(sum1(3))
+    // testSum1()
+    // testSum2()
+    facTest()
+}
+main()

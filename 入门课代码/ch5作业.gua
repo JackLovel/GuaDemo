@@ -1,0 +1,328 @@
+const ensure = function(condition, message) {
+    // 在条件不成立的时候, 输出 message
+    if (not condition) {
+        log('*** 测试失败:', message)
+    } else {
+        log('||| 测试成功')
+    }
+}
+
+// 在 s1 种查找 s2
+const find = function(s1, s2) {
+    var index = -1
+    var i = 0
+    while(i < s1.length()) {
+        if (s1[i] == s2) {
+            index = i
+            break
+        }
+
+        i = i + 1
+    }
+
+    return index
+}
+
+const abs = function(n) {
+    var result = 0
+    if (n < 0) {
+        result = -n
+    } else {
+        result = n
+    }
+
+    return result
+}
+
+const n_char = function(n, fillchar) {
+    var result = ''
+    var i = 0
+    n = abs(n)
+    while(i < n) {
+        result = result + fillchar
+        i = i + 1
+    }
+
+    return result
+}
+
+// ex1
+const zfill = function(n, width) {
+    var cv = str(n)
+    var len = cv.length()
+    var gap = len - width
+    if (gap < 0) {
+        cv = n_char(gap) + cv
+    } else {
+        cv = cv
+    }
+
+    return cv
+}
+
+const test_zfill = function() {
+    ensure(zfill(1, 4) == '0001', 'zfill 测试 1')
+    ensure(zfill(23, 4) == '0023', 'zfill 测试 2')
+    ensure(zfill(12345, 4) == '12345', 'zfill 测试 3')
+    ensure(zfill(169, 5) == '00169', 'zfill 测试 4')
+}
+
+// ex2
+const rjust = function(s, width, fillchar=' ') {
+    var cv = s
+    var len = cv.length()
+    var gap = len - width
+    if (gap < 0) {
+        cv = n_char(gap, fillchar) + cv
+    } else {
+        cv = cv
+    }
+
+    return cv
+}
+
+const test_rjust = function() {
+    ensure(rjust('gua', 5) == '  gua', 'rjust 测试 1')
+    ensure(rjust('guagua', 5) == 'guagua', 'rjust 测试 2')
+    ensure(rjust('gua', 5, '*') == '**gua', 'rjust 测试 3')
+}
+
+const ljust = function(s, width, fillchar=' ') {
+    var cv = s
+    var len = cv.length()
+    var gap = len - width
+    if (gap < 0) {
+        cv = cv + n_char(gap, fillchar)
+    } else {
+        cv = cv
+    }
+
+    return cv
+}
+
+const test_ljust = function() {
+    ensure(ljust('gua', 5) == 'gua  ', 'ljust 测试 1')
+    ensure(ljust('guagua', 5) == 'guagua', 'ljust 测试 2')
+    ensure(ljust('gua', 5, '*') == 'gua**', 'ljust 测试 3')
+}
+
+const center = function(s, width, fillchar=' ') {
+    var cv = s
+    var len = cv.length()
+    var gap = len - width
+    var lwidth = 0
+    var rwidth = 0
+    if (gap < 0) {
+        if (abs(gap) % 2  == 0) {
+            lwidth = abs(gap) / 2
+            rwidth = abs(gap) / 2
+        } else {
+            lwidth = abs(gap) - (abs(gap) + 1) / 2
+            rwidth = (abs(gap) + 1) / 2
+        }
+
+        cv =  n_char(lwidth, fillchar) + cv + n_char(rwidth, fillchar)
+
+    } else {
+        cv = cv
+    }
+
+    return cv
+}
+
+const test_center = function() {
+    ensure(center('gua', 5) == ' gua ', 'center 测试 1')
+    ensure(center('gua', 5, '*') == '*gua*', 'center 测试 2')
+    ensure(center('gw', 5) == ' gw  ', 'center 测试 3')
+    ensure(center('gua', 6) == ' gua  ', 'center 测试 4')
+}
+
+const is_space = function(s) {
+    if (s == '') {
+        return false
+    }
+
+    var n = s.length()
+    var i = 0
+    while(i < n) {
+        if (s [i] != ' ') {
+            return false
+        }
+
+        i = i + 1
+    }
+
+    return true
+}
+
+const test_is_space = function() {
+    ensure(is_space(' '), 'center 测试 1')
+    ensure(is_space('   '), 'center 测试 2')
+    ensure(not is_space(''), 'center 测试 3')
+    ensure(not is_space('gua'), 'center 测试 4')
+    ensure(not is_space('  gua'), 'center 测试 5')
+}
+
+const is_digit = function(s) {
+    var digit = '0123456789'
+    if (s == "") {
+        return false
+    }
+
+    var n = s.length()
+    var i = 0
+    while(i < n) {
+        if (find(digit, s[i]) == -1) {
+            return false
+        }
+
+        i = i + 1
+    }
+
+    return true
+}
+
+const test_is_digit = function() {
+    ensure(is_digit('123'), 'is_digit 测试 1')
+    ensure(is_digit('0'), 'is_digit 测试 2')
+    ensure(not is_digit('  '), 'is_digit 测试 3')
+    ensure(not is_digit('1.1'), 'is_digit 测试 4')
+    ensure(not is_digit('gua'), 'is_digit 测试 5')
+    ensure(not is_digit(''), 'is_digit 测试 6')
+}
+
+const strip_left = function(s) {
+
+    var result = ''
+    if(s == '') {
+        return result
+    }
+
+    if (is_space(s)) {
+        return result
+    }
+
+    var i = 0
+    while(i < s.length()) {
+        if (s[i] != ' ') {
+            result = s.cut(i)
+            return result
+        }
+
+        i = i + 1
+    }
+}
+
+const test_strip_left = function() {
+    ensure(strip_left('  gua') == 'gua', 'strip_left 测试 1')
+    ensure(strip_left(' gua  ') == 'gua  ', 'strip_left 测试 2')
+    ensure(strip_left('') == '', 'strip_left 测试 3')
+    ensure(strip_left('    ') == '', 'strip_left 测试 4')
+}
+
+const strip_right = function(s) {
+    var result = ''
+    if (s == '') {
+        return result
+    }
+
+    if (is_space(s)) {
+        return result
+    }
+
+    var len = s.length()
+    var i = 0   // 左边的序号
+    var ri = 0  // 右边的序号
+    while (i < len) {
+        ri = len - i - 1
+        result = s[ri]
+        if (result != ' ') {
+            result = s.cut(0, ri + 1)
+
+            return result
+        }
+
+        i += 1
+    }
+
+    return result
+}
+
+const test_strip_right = function() {
+    ensure(strip_right('gua') == 'gua', 'strip_right 测试 1')
+    ensure(strip_right(' gua  ') == ' gua', 'strip_right 测试 2')
+    ensure(strip_right('') == '', 'strip_right 测试 3')
+    ensure(strip_right('    ') == '', 'strip_right 测试 4')
+}
+
+const strip = function(s) {
+    var result = ''
+    result = strip_left(s)
+    result = strip_right(result)
+
+    return result
+}
+
+const test_strip = function() {
+    ensure(strip('  gua') == 'gua', 'strip 测试 1')
+    ensure(strip(' gua  ') == 'gua', 'strip 测试 2')
+    ensure(strip('') == '', 'strip 测试 3')
+    ensure(strip('    ') == '', 'strip 测试 4')
+}
+
+const find_str = function(s1, s2) {
+    // s1: ad
+    // s2: aga
+    // example: find_str(s1, s2), use s1 replace with s2
+    var len_s2 = s2.length()
+    var len_s1 = s1.length()
+    var i = 0
+    var index = -1
+    while(i < len_s2) {
+        if (s2.cut(i, i + len_s1) == s1) {
+            index = i
+            return index
+        }
+        i += 1
+    }
+
+    return index
+}
+
+const replace = function(s, old_str, new_str) {
+    var index = 0
+    var right_str = ''
+    var left_str = ''
+    var result = s
+    var old_len = old_str.length()
+    var s_len = s.length()
+    while(find_str(old_str, result) != -1) {
+        index = find_str(old_str, s)
+        right_str = s.cut(0, index)
+        left_str = s.cut(index+old_len, s_len)
+        result = right_str + new_str + left_str
+    }
+
+    return result
+}
+
+const test_replace = function() {
+    ensure(replace('guagua', 'ag', 'l') == 'gulua', 'replace 测试 1')
+    ensure(replace('g  ', '  ', 'a') == 'ga', 'replace 测试 2')
+    ensure(replace('l', 'l', '') == '', 'replace 测试 3')
+}
+
+const main = function() {
+    // test_zfill()
+    // test_rjust()
+    // test_ljust()
+    // test_center()
+    // test_is_space()
+    // test_is_digit()
+    // test_strip_left()
+    // test_strip_right()
+    // test_strip()
+    test_replace()
+}
+
+main()

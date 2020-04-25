@@ -1,0 +1,240 @@
+const ensure = function(condition, message) {
+    if (condition) {
+        log('成功')
+    } else {
+        log('成测失败', message)
+    }
+}
+
+const lowercase = function(s) {
+
+    // 这里是两个字符串, 包含了大写字母和小写字母
+
+    var lower = 'abcdefghijklmnopqrstuvwxyz'
+
+    var upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+    // 初始化一个空字符串
+
+    var result = ""
+
+    var i = 0
+
+    while (i < s.length()) {
+
+        // 注意, 这个 find 是你要实现的函数
+
+        var index = find(upper, s[i])
+
+        // 字符串可以用加号拼接, 不明白可以 log 一下
+
+        result += lower[index]
+
+        i += 1
+
+    }
+
+    return result
+
+}
+
+
+// ex1
+// 找出 s2
+const find = function(s1, s2) {
+    var index = -1
+    var i = 0
+    while(i < s1.length()) {
+        if (s1[i] == s2) {
+            index = i
+            break
+        }
+
+        i = i + 1
+    }
+
+    return index
+}
+
+const testFind = function() {
+    ensure(find("koao", 'a') == 2, '错误1')
+    ensure(find("koaok", 'y') == -1, '错误2')
+    ensure(find("123", '4') == -1, '错误3')
+}
+
+const uppercase = function(s) {
+    var lower = 'abcdefghijklmnopqrstuvwxyz'
+    var upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+    // 初始化一个空字符串
+    var result = ""
+    var i = 0
+    while (i < s.length()) {
+        // 注意, 这个 find 是你要实现的函数
+        var index = find(lower, s[i])
+        // 字符串可以用加号拼接, 不明白可以 log 一下
+        result += upper[index]
+        i += 1
+    }
+
+    return result
+}
+
+const testUppercase = function() {
+    ensure(uppercase('hello') == 'HELLO', 'uppercase 1')
+    ensure(uppercase('gua') == 'GUA', 'uppercase 2')
+}
+
+const lowercase1 = function(s) {
+    var lower = 'abcdefghijklmnopqrstuvwxyz'
+    var upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+    // 初始化一个空字符串
+    var result = ""
+    var i = 0
+    while (i < s.length()) {
+        // 如果s 大写字母
+        var index = find(upper, s[i])
+        if (index != -1) {
+            result += lowercase(s[i])
+        } else {
+            result += s[i]
+        }
+
+        i += 1
+    }
+
+    return result
+}
+
+const test_lowercase1 = function() {
+    ensure(lowercase1('heLLo') == 'hello', 'lowercase1 1')
+    ensure(lowercase1('gua') == 'gua', 'lowercase1 2')
+    ensure(lowercase1('GW') == 'gw', 'lowercase1 3')
+}
+
+const uppercase1 = function(s) {
+    var lower = 'abcdefghijklmnopqrstuvwxyz'
+    var upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+    // 初始化一个空字符串
+    var result = ""
+    var i = 0
+    while (i < s.length()) {
+        // 如果s 大写字母
+        var index = find(lower, s[i])
+        if (index != -1) {
+            result += uppercase(s[i])
+        } else {
+            result += s[i]
+        }
+
+        i += 1
+    }
+
+    return result
+}
+
+const test_uppercase1 = function() {
+    ensure(uppercase1('helLo') == 'HELLO', 'uppercase1 1')
+    ensure(uppercase1('gUA') == 'GUA', 'uppercase1 2')
+}
+
+const encode1 = function(s) {
+    var lower = 'abcdefghijklmnopqrstuvwxyz'
+    // var upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+    // 初始化一个空字符串
+    var result = ""
+    var i = 0
+    while (i < s.length()) {
+        var c = s[i]
+        // 如果s 大写字母
+        var index = find(lower, c)
+
+        if (index < 25) {
+            result += lower[index + 1]
+        } else {
+            result += 'a'
+        }
+
+        i += 1
+    }
+
+    return result
+}
+
+const test_encode1 = function() {
+    ensure(encode1('afz') == 'bga', 'encode1 1')
+    ensure(encode1('gw') == 'hx', 'encode1 2')
+    ensure(encode1('ab') == 'bc', 'encode1 2')
+    // log(encode1('z'))
+}
+
+const decode1 = function(s) {
+    var lower = 'abcdefghijklmnopqrstuvwxyz'
+    // var upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+    // 初始化一个空字符串
+    var result = ""
+    var i = 0
+    while (i < s.length()) {
+        // 如果s 大写字母
+        var index = find(lower, s[i])
+
+        if (index == 1) {
+            result += 'a'
+        } else {
+            result += lower[index - 1]
+        }
+
+        i += 1
+    }
+
+    return result
+}
+
+const test_decode1 = function() {
+    ensure(decode1('bga') == 'afz', 'decode1 1')
+    ensure(decode1('hx') == 'gw', 'decode1 2')
+}
+
+
+const encode2 = function(s, shift) {
+    var lower = 'abcdefghijklmnopqrstuvwxyz'
+    // var upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+    // 初始化一个空字符串
+    var result = ""
+    var i = 0
+    while (i < s.length()) {
+        // 如果s 大写字母
+        var index = find(lower, s[i])
+        index += shift
+        index = index % 26
+        result += lower[index]
+        i += 1
+    }
+
+    return result
+}
+
+const test_encode2 = function() {
+    ensure(encode2('afz', 2) == 'chb', 'encode2 1')
+    ensure(encode2('gw', 3) == 'jz', 'encode2 2')
+}
+
+const decode2 = function() {
+    
+}
+// test_encode2()
+
+const main = function() {
+    // testFind()
+    // testUppercase()
+    // test_lowercase1()
+    // test_encode1()
+    test_encode2()
+}
+
+main()

@@ -1,0 +1,146 @@
+const jump = function(x, y) {
+    penup()
+    goto(x, y)
+    pendown()
+}
+
+const square = function(x, y, length) {
+  jump(x, y)
+   //设置朝向, 确保箭头朝向 右边
+    //当然如果是用 goto 来画的话, 就不用关心朝向
+   setHeading(0)
+    //循环画正方形
+    //当然, 你可以用 goto 来画
+    //只需要计算一下四个顶点的坐标 (这很简单)
+   var i = 0
+   while (i < 4) {
+       forward(length)
+       right(90)
+       i = i + 1
+   }
+}
+
+//square(0, 0, 100)
+const rect = function(x, y, w, h) {
+  jump(x, y)
+   //设置朝向, 确保箭头朝向 右边
+    //当然如果是用 goto 来画的话, 就不用关心朝向
+   setHeading(0)
+    //循环画正方形
+    //当然, 你可以用 goto 来画
+    //只需要计算一下四个顶点的坐标 (这很简单)
+   var i = 0
+   while (i < 2) {
+       forward(w)
+       right(90)
+       forward(h)
+       right(90)
+       i = i + 1
+   }
+}
+
+//rect(0, 0, 100, 50)
+const square5 = function() {
+  var length = 30
+  var i = 0
+  while(i < 5) {
+    var x = i * 30
+    var y = 0
+    square(x, y, length)
+    forward(length)
+    i = i + 1
+  }
+}
+//square5()
+
+// ex4
+// 0 30 + 10 (30 + 10) * 2
+// 0 1             2
+const square5_10 = function() {
+  var length = 30
+  var space = 10
+  var i = 0
+  while(i < 5) {
+    var x = (length + space) * i
+    var y = 0
+    jump(x, y)
+    setHeading(0)
+    square(x, y, length)
+    forward(length)
+    i = i + 1
+  }
+}
+
+//square5_10()
+
+// ex5
+const square_line = function(x, y, n, space, length) {
+  var i = 0
+  while(i < n) {
+    var x1 = (length + space) * i + x
+    var y1 = y
+    square(x1, y1, length)
+    i = i + 1
+  }
+}
+
+//square_line(3, 3, 6, 10, 3)
+
+// ex6
+const square_square = function(x, y, space, len, n, m) {
+    var i = 0
+    while(i < m) {
+        var y1 = (len + space) * i + y
+        var x1 = x
+        square_line(x1, y1, n, space, len)
+        i = i + 1
+    }
+}
+
+//square_square(1, 1, 10, 5, 5, 3)
+
+// ex7 画矩形
+const rect_line = function(x, y, w, h, n, space) {
+  var i = 0
+  while(i < n) {
+    var x1 = (w + space) * i + x
+    var y1 = y
+    rect(x1, y1, w, h)
+    i = i + 1
+  }
+}
+
+//rect_line(0,0,5,8,3,10)
+
+// ex8 矩形 方阵
+const rect_square = function(x, y, space, w, h, n, m) {
+    var i = 0
+    while(i < m) {
+        var y1 = (h + space) * i + y
+        var x1 = x
+        rect_line(x1, y1, w, h, n, space)
+        i = i + 1
+    }
+}
+
+//rect_square(0, 0, 3, 3, 4, 3, 4)
+
+// ex9 正多边形
+const polygon = function(x, y, n, length) {
+     var angle = 360 / n
+     jump(x, y)
+     //设置朝向, 确保箭头朝向 右边
+      //当然如果是用 goto 来画的话, 就不用关心朝向
+     setHeading(0)
+      //循环画正方形
+      //当然, 你可以用 goto 来画
+      //只需要计算一下四个顶点的坐标 (这很简单)
+     var i = 0
+     while (i < n) {
+         forward(length)
+         right(angle)
+         i = i + 1
+     }
+}
+
+polygon(0, 0, 4, 10)
