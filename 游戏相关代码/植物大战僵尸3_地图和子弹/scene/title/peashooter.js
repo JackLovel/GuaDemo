@@ -10,18 +10,28 @@ class Peashooter extends GuaAnimation {
                 },
             ]
         }
-        return new this(game, animation)
+        let p = new this(game, animation) 
+        p.setup() 
+        return p 
     }
     setup() {
-        this.map = null 
-        this.stepIndex = 0
-        this.steps = []
-        this.dead = false 
-        // this.x = 
-        this.y = 170
-        this.speed = 2 
-        this.maxHP = 18 
-        this.hp = this.maxHP
-        this.destination = 500 
+        this.cooldown = 50
+    }
+    fire() {
+        this.cooldown-- 
+        if (this.cooldown == 0) {
+            // 开始冷却
+            this.cooldown = 50
+            // 发射子弹
+            let pb = PeaBullet.new(this.game, 'peabullet1')
+            let fix = 30
+            pb.x = this.x + fix 
+            pb.y = this.y
+            this.game.scene.addElement(pb)
+        }
+    }
+    update() {
+        super.update() 
+        this.fire() 
     }
 }

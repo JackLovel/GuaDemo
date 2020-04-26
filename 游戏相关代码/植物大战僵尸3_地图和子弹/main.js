@@ -65,6 +65,7 @@ var __main = function() {
     }
     var images = {
         bg1: 'img/background1.jpg',
+        peabullet1: 'img/peabullet1.gif',
     }
     //
     GuaAddAnimation(images, animationZombie)
