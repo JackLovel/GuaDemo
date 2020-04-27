@@ -15,8 +15,13 @@ class Peashooter extends GuaAnimation {
         return p 
     }
     setup() {
+        // row 表示在草地的第几排
+        this.row = -1 
         this.cooldown = 50
-        this.sleep = false 
+        this.sleep = true  
+    }
+    awake() {
+        this.sleep = false  
     }
     fire() {
         // 没有僵尸不发射子弹
@@ -32,7 +37,11 @@ class Peashooter extends GuaAnimation {
             let fix = 30
             pb.x = this.x + fix 
             pb.y = this.y
+            pb.row = this.row
+            let s = this.game.scene 
             this.game.scene.addElement(pb)
+            s.addElement(pb)
+            s.bullets.push(pb)
         }
     }
     update() {
