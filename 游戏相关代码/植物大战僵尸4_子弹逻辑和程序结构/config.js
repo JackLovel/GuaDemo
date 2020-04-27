@@ -1,4 +1,10 @@
 var config = {
+    hit_offset: {
+        _comment: '子弹的碰撞修订',
+        value: -30,
+        min: -50, 
+        max: 100, 
+    }, 
     // bird_speed
     bird_speed: {
         _comment: '鸟的速度',

@@ -13,6 +13,8 @@ class SceneTitle extends GuaScene {
         this.widthOfColumn = 80 
         this.heightOfRow = 100 
         // 
+        this.bulletHitOffset = config.hit_offset.value
+        // 
         this.setupBG() 
         this.setupInputs() 
         this.setupZombies()
@@ -60,6 +62,9 @@ class SceneTitle extends GuaScene {
     setupInputs() {
         
     }
+    debug() {
+        this.bulletHitOffset = config.hit_offset.value 
+    }
     update() {
         super.update() 
         // 碰撞开头和碰撞
@@ -82,7 +87,7 @@ class SceneTitle extends GuaScene {
             for (let b of this.bullets) {
                 if (b.row == row) {
                     // 判断是否相撞
-                    if (z.x - b.x < 20) {
+                    if (z.x - b.x < this.bulletHitOffset) {
                         // 临时性的修改
                         b.x += 10000
                     }
