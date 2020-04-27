@@ -11,7 +11,15 @@ class PeaBullet extends GuaImage {
     static new(...args) {
         return new this(...args);
     }
+    debug() {
+        this.speed = config.bullet_speed.value
+    }
     update() {
         this.x += this.speed
+    }
+    remove() {
+        // 应该先播放动画，再删除
+        // 这里我们直接删除
+        this.scene.removeBullet(this)
     }
 }

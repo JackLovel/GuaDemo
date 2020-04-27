@@ -3,6 +3,7 @@ class SceneTitle extends GuaScene {
         super(game)
         this.setup() 
     }
+    // setup 系列
     setup() {
         this.zombies = []
         this.plants = []     
@@ -36,6 +37,16 @@ class SceneTitle extends GuaScene {
             }
         }
     }
+    setupZombies() {
+        this.addZombie(1)
+        this.addZombie(3)
+    
+        // window.z = zombie
+    }
+    setupInputs() {
+        
+    }
+    // add 系列
     addPlant(plant, row, column) {
         let p = plant
         p.x = this.offsetX + column * this.widthOfColumn 
@@ -53,18 +64,24 @@ class SceneTitle extends GuaScene {
         this.addElement(zombie)
         this.zombies.push(zombie)
     }
-    setupZombies() {
-        this.addZombie(1)
-        this.addZombie(3)
-    
-        // window.z = zombie
+    // remove 系列
+    removeBullet(bullet) {
+        this.bullets = this.bullets.filter(e => {
+            return e != bullet
+        })
+        this.removeElement(bullet)
     }
-    setupInputs() {
-        
+    removeZombie(zombie) {
+        this.zombies = this.zombies.filter(z => {
+            return z != zombie
+        })
+        this.removeElement(zombie)
     }
+    // debug 系列
     debug() {
         this.bulletHitOffset = config.hit_offset.value 
     }
+    // update 系列
     update() {
         super.update() 
         // 碰撞开头和碰撞
@@ -88,8 +105,10 @@ class SceneTitle extends GuaScene {
                 if (b.row == row) {
                     // 判断是否相撞
                     if (z.x - b.x < this.bulletHitOffset) {
+                        z.被击中(b.damage)
+                        b.remove()
                         // 临时性的修改
-                        b.x += 10000
+                        // b.x += 10000
                     }
                 }
             }
