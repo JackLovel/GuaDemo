@@ -16,8 +16,13 @@ class Peashooter extends GuaAnimation {
     }
     setup() {
         this.cooldown = 50
+        this.sleep = false 
     }
     fire() {
+        // 没有僵尸不发射子弹
+        if (this.sleep) {
+            return 
+        }
         this.cooldown-- 
         if (this.cooldown == 0) {
             // 开始冷却

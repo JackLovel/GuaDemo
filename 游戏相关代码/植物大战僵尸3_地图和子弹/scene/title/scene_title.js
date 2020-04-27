@@ -4,6 +4,10 @@ class SceneTitle extends GuaScene {
         this.setup() 
     }
     setup() {
+        this.offsetY = 100 
+        this.offsetX = 255
+        this.heightOfRow = 100 
+        // 
         this.setupBG() 
         this.setupInputs() 
         this.setupZombies()
@@ -14,21 +18,35 @@ class SceneTitle extends GuaScene {
         this.addElement(bg)
     }
     setupPlants() {
-        let p = Peashooter.new(this.game)
-        p.x = 350
-        p.y = 200 
-        this.addElement(p)
-        // window.z = zombie
+        for (var j = 0; j < 1; j++) {
+            for (var i = 0; i < 5; i++) {
+                let p = Peashooter.new(this.game)
+                // 255 和 100 是 
+                p.x = 255 + j * 80
+                p.y = 100 + i * 100 
+                this.addElement(p) 
+            }
+        }
     }
-    setupZombies() {
+    addZombie(row) {
+        // row 表示第几排
         let zombie = Zombie.new(this.game)
         zombie.x = 600 
-        zombie.y = 230 
+        zombie.y = this.offsetY + row * this.heightOfRow 
         this.addElement(zombie)
+    }
+    setupZombies() {
+        this.addZombie(1)
+        this.addZombie(3)
     
-        window.z = zombie
+        // window.z = zombie
     }
     setupInputs() {
         
+    }
+    update() {
+        super.update() 
+        // 碰撞检测
+
     }
 }
